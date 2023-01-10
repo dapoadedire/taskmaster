@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid'
 function App() {
   const storedTodos = JSON.parse(localStorage.getItem("todos"));
   const [todo, setTodo] = useState("");
-  const [todos, setTodos] = useState([].concat(storedTodos));
+  const [todos, setTodos] = useState([].concat(storedTodos || []));
   localStorage.setItem("todos", JSON.stringify(todos));
 
   useEffect(() => {
@@ -68,12 +68,15 @@ function App() {
           Todos
         </h3>
         <ul>
-          {todos.filter((todo) => todo.done === false).map((todo, index) => (
-            <li key={index}>{todo.todo}
-            <button onClick={()=>markDone(todo)}>Done</button>
-            <button onClick={()=>deleteTodo(todo)}>Delete</button>
-            </li>
-          ))}
+          {todos.filter((todo) => todo.done === false).length ?
+            todos.filter((todo) => todo.done === false).map((todo, index) => (
+              <li key={index}>{todo.todo}
+                <button onClick={() => markDone(todo)}>Done</button>
+                <button onClick={() => deleteTodo(todo)}>Delete</button>
+              </li>
+            )) : <li>No Todos available, Add some</li>
+          }
+
         </ul>
       </div>
 
@@ -85,15 +88,16 @@ function App() {
         <ul>
          {/* filter done */}
 
-         {
-            todos.filter((todo)=>todo.done).map((todo, index)=>(
-              <li key={index}>{todo.todo}
-                <button onClick={() => markDone(todo)}>Undone</button>
-                <button onClick={() => deleteTodo(todo)}>Delete</button></li>
-              
-            ))
+          {
+            todos.filter((todo) => todo.done).length ?
+              todos.filter((todo) => todo.done).map((todo, index) => (
+                <li key={index}>{todo.todo}
+                  <button onClick={() => markDone(todo)}>Undone</button>
+                  <button onClick={() => deleteTodo(todo)}>Delete</button>
+                </li>
+              )) : <li>You have finished all todos! Add more</li>
+          }
 
-         }
 
         </ul>
         <ul>
