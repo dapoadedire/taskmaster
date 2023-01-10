@@ -1,16 +1,21 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import { nanoid } from 'nanoid'
+import { nanoid } from "nanoid";
 
 function App() {
   const storedTodos = JSON.parse(localStorage.getItem("todos"));
+ 
+  if (storedTodos === null) {
+    localStorage.setItem("todos", JSON.stringify([]));
+  }
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([].concat(storedTodos || []));
-  localStorage.setItem("todos", JSON.stringify(todos));
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
+
+
 
   function addTodo(todo) {
     setTodo("");
@@ -24,31 +29,29 @@ function App() {
     ]);
   }
 
-
-  function markDone(todo){
-    const newTodos = todos.map((item)=>{
-      if(item.id === todo.id){
-        item.done = !item.done
+  function markDone(todo) {
+    const newTodos = todos.map((item) => {
+      if (item.id === todo.id) {
+        item.done = !item.done;
       }
-      return item
-    })
+      return item;
+    });
     setTodos(newTodos);
-
   }
 
-
-  function deleteTodo(todo){
-    const newTodos = todos.filter((item)=>item.id !== todo.id)
-    setTodos(newTodos)
+  function deleteTodo(todo) {
+    const newTodos = todos.filter((item) => item.id !== todo.id);
+    setTodos(newTodos);
   }
 
   return (
-    <div>
-      <h1>Hii</h1>
-      <form action="">
+    <div className="todo-container">
+      <h1>To-Do List</h1>
+      <form>
         <input
           type="text"
           value={todo}
+          placeholder="Add a new task"
           onChange={(e) => setTodo(e.target.value)}
         />
 
@@ -59,51 +62,52 @@ function App() {
             addTodo(todo);
           }}
         >
-          Add
+          Add Task
         </button>
       </form>
 
       <div>
-        <h3>
-          Todos
-        </h3>
-        <ul>
-          {todos.filter((todo) => todo.done === false).length ?
-            todos.filter((todo) => todo.done === false).map((todo, index) => (
-              <li key={index}>{todo.todo}
-                <button onClick={() => markDone(todo)}>Done</button>
-                <button onClick={() => deleteTodo(todo)}>Delete</button>
-              </li>
-            )) : <li>No Todos available, Add some</li>
-          }
-
-        </ul>
+        <h3>Pending Tasks</h3>
+        {todos.filter((todo) => todo.done === false).length ? (
+          <ul>
+            {todos
+              .filter((todo) => todo.done === false)
+              .map((todo, index) => (
+                <li key={index} className="todo-item">
+                  <span className={todo.done ? "done" : ""}>{todo.todo}</span>
+                  <div className="todo-btns">
+                    <button onClick={() => markDone(todo)}>Mark as Done</button>
+                    <button onClick={() => deleteTodo(todo)}>Delete</button>
+                  </div>
+                </li>
+              ))}
+          </ul>
+        ) : (
+          <p>You have no pending tasks. Why not add one?</p>
+        )}
       </div>
 
-
       <div>
-        <h3>
-          Done
-        </h3>
-        <ul>
-         {/* filter done */}
-
-          {
-            todos.filter((todo) => todo.done).length ?
-              todos.filter((todo) => todo.done).map((todo, index) => (
-                <li key={index}>{todo.todo}
-                  <button onClick={() => markDone(todo)}>Undone</button>
-                  <button onClick={() => deleteTodo(todo)}>Delete</button>
+        <h3>Completed Tasks</h3>
+        {todos.filter((todo) => todo.done).length ? (
+          <ul>
+            {todos
+              .filter((todo) => todo.done)
+              .map((todo, index) => (
+                <li key={index} className="todo-item completed">
+                  <span>{todo.todo}</span>
+                  <div className="todo-btns">
+                    <button onClick={() => markDone(todo)}>
+                      Mark as Incomplete
+                    </button>
+                    <button onClick={() => deleteTodo(todo)}>Delete</button>
+                  </div>
                 </li>
-              )) : <li>You have finished all todos! Add more</li>
-          }
-
-
-        </ul>
-        <ul>
-
-
-        </ul>
+              ))}
+          </ul>
+        ) : (
+          <p>You have not completed any tasks yet.</p>
+        )}
       </div>
     </div>
   );
