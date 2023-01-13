@@ -138,7 +138,7 @@ function App() {
                       <FontAwesomeIcon
                         icon={faTrashCan}
                         onClick={() => deleteTodo(todo)}
-                        className="mx-1 p-3 border-red-600 text-red-600"
+                        className="mx-1 p-3 border-red-600 text-red-600 cursor-pointer" 
                       />
                     </li>
                   ))}
