@@ -16,7 +16,7 @@
         "react",
         "jsx-a11y",
         "import",
-        "tailwind"
+        "tailwindcss"
     ],
     "parserOptions": {
         "ecmaVersion": 2022,
