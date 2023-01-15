@@ -1,6 +1,5 @@
 import { useState, useEffect} from "react";
 import "./App.css";
-import 'animate.css/animate.css'
 import { nanoid } from "nanoid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
