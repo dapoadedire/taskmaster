@@ -32,15 +32,15 @@ TaskMaster is a to-do list application built with React. It allows users to add,
 ## Run Locally
 
 ```bash
-git clone <https://www.github.com/dapoadedire/taskmaster>    
+git clone <https://www.github.com/dapoadedire/taskmaster>
 ```
 
 ```bash
-cd taskmaster    
+cd taskmaster
 ```
 
 ```bash
-npm install        
+npm install
 ```
 
 ```bash
