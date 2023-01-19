@@ -1,4 +1,4 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import { nanoid } from "nanoid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,7 +10,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-
 
 function App() {
   const storedTodos = JSON.parse(localStorage.getItem("todos"));
@@ -74,11 +73,9 @@ function App() {
 
   return (
     <div className="font-mono">
-
-   
       <header className="h-32">
         <h1 className="flex h-full items-center justify-center text-center text-5xl font-extrabold">
-          TaskMaster 
+          TaskMaster
         </h1>
       </header>
       <main>
@@ -114,8 +111,6 @@ function App() {
               Pending Tasks
             </h3>
 
-
-            
             {todos.filter((todo) => todo.done === false).length ? (
               <ul>
                 {todos
@@ -146,7 +141,7 @@ function App() {
                       <FontAwesomeIcon
                         icon={faTrashCan}
                         onClick={() => deleteTodo(todo)}
-                        className="mx-1 cursor-pointer rounded-lg p-2  text-red-600 hover:bg-red-100 sm:p-3" 
+                        className="mx-1 cursor-pointer rounded-lg p-2  text-red-600 hover:bg-red-100 sm:p-3"
                       />
                     </li>
                   ))}
@@ -157,9 +152,8 @@ function App() {
               </p>
             )}
           </div>
-          
 
-          {/* Completed todos */ }
+          {/* Completed todos */}
           <div className="mb-10 rounded-lg border-2 border-gray-300 p-2 sm:grow">
             <h3 className="py-4 text-center text-lg font-bold underline">
               Completed Tasks
@@ -179,7 +173,6 @@ function App() {
                         className="mx-1 cursor-pointer rounded-lg p-2  text-teal-600 hover:bg-teal-100 sm:p-3
                        
                         "
-                      
                       />
                       <FontAwesomeIcon
                         icon={faArrowDown}
@@ -200,21 +193,18 @@ function App() {
                           onClick={() => deleteTodo(todo)}
                           className="mx-1 cursor-pointer rounded-lg p-2  text-red-600 hover:bg-red-100 sm:p-3"
                         />
-                       
                       </div>
                     </li>
                   ))}
               </ul>
             ) : (
-                <p className="my-4 flex rounded-lg border-2 border-gray-200 p-2 text-center">
-                  You have no completed tasks.
-                </p>
+              <p className="my-4 flex rounded-lg border-2 border-gray-200 p-2 text-center">
+                You have no completed tasks.
+              </p>
             )}
           </div>
         </div>
-     
       </main>
-    
     </div>
   );
 }
